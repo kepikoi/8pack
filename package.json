@@ -1,0 +1,20 @@
+{
+  "name": "pico8-packer",
+  "version": "0.0.0",
+  "description": "",
+  "main": "8pack.js",
+  "start": "8pack.js",
+  "man": "./src/8pack.man",
+  "scripts": {
+    "test": "./node_modules/.bin/jasmine-node spec"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.0.1",
+    "minimist": "^1.2.0"
+  },
+  "devDependencies": {
+    "jasmine-node": "^1.14.5"
+  }
+}

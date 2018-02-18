@@ -2,8 +2,8 @@ const assert = require('assert'),
     argv = require('minimist')(process.argv.slice(2)),
     fs = require('fs'),
     path = require('path'),
-    {VERSIONS, getVersion} = require('./bin/versions'),
-    removeFileExt = require('./bin/helpers.js'),
+    {VERSIONS, getVersion} = require('./src/versions'),
+    removeFileExt = require('./src/helpers.js'),
     writeOutput = (path, src) => {
         fs.writeFileSync(path, src);
         console.log('writing ' + path);
@@ -11,8 +11,9 @@ const assert = require('assert'),
 ;
 
 if (!argv._.length || argv.h || argv.help) {
+    !argv._.length && console.warn('missing mandatory arguments');
     //show man page
-    console.log(require('./bin/help'));
+    console.log(require('./src/help'));
     process.exit(0)
 }
 
@@ -29,6 +30,7 @@ if (output) {
 
 const watch = argv.w || argv.watch;
 const template = argv.t || argv.template;
+console.log('using template',template);
 
 //read from input path
 const fileInputPath = path.resolve(input);
@@ -40,7 +42,6 @@ const fileInjectPath = !!output ? path.resolve(output): getVersion(template); //
 //output the result to output path
 const fileOutputPath = output ? path.resolve(output) : fileInputPath + '.p8'; //create a new file when not specified the output
 console.log(`using ${fileOutputPath} as output`);
-
 
 const luaSource = fs.readFileSync(fileInputPath, 'utf8'); //contents of input file
 const picoSource = fs.readFileSync(fileInjectPath, 'utf8'); //contents of output file

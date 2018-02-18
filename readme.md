@@ -1,14 +1,16 @@
 8pack
-=====
+====================
 
 ## Utility that injects Lua source into a PICO-8 project. 
 
-##Installation
+---
+
+## Installation
 ````bash
 npm install 8pack -g
 ````
 
-##Examples
+## Examples
 
 Create *sample.lua.p8* from *sample.lua* using newest PICO-8 template
 ````bash
@@ -27,9 +29,10 @@ Watch */tests/sample.lua* for changes and overwrite to */tests/sample.lua.p8*
 
 Write */tests/sample.lua* source to */tests/foo.p8* using PICO-8 0.1.10c template 
 ````bash
-8pack tests/sample.lua /tests/foo.p8 -v 0.1.10c
+8pack tests/sample.lua /tests/foo.p8 --template 0.1.10c
 ````
 
 
-##ToDos
-* write tests
+## ToDos
+* Write tests
+* Lua Modules

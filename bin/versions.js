@@ -1,12 +1,14 @@
-const fs = require('fs');
-const path = require('path');
-const assert = require('assert');
+const
+    fs = require('fs')
+    , path = require('path')
+    , assert = require('assert')
+    , VERSIONS = {
+        '0.1.10c.p8': '0.1.10c.p8'
+        , '0.1.11g.p8': '0.1.11g.p8'
+    }
+;
 
-const VERSIONS = {
-    NEWEST: '0.1.10c.p8',
-    '0.1.10c.p8': '0.1.10c.p8'
-};
-
+VERSIONS.NEWEST = VERSIONS["0.1.11g.p8"];
 
 module.exports = {
     VERSIONS,

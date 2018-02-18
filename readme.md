@@ -1,8 +1,7 @@
 8pack
 ====================
 
-## Utility that injects Lua source into a PICO-8 project. 
-
+## Utility that injects Lua source into a [PICO-8](https://www.lexaloffle.com/pico-8.php) project. 
 ---
 
 ## Installation
@@ -32,6 +31,11 @@ Write */tests/sample.lua* source to */tests/foo.p8* using PICO-8 0.1.10c templat
 8pack tests/sample.lua /tests/foo.p8 --template 0.1.10c
 ````
 
+## JetBrains Watcher Arguments
+Install 8pack globally and add 8pack bin as watcher with following arguments for on-the-fly injection 
+````
+$ProjectFileDir$/$FileName$ $ProjectFileDir$/$FileNameWithoutExtension$.p8
+````
 
 ## ToDos
 * Write tests

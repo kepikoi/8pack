@@ -1,17 +1,24 @@
-const assert = require('assert'),
-    argv = require('minimist')(process.argv.slice(2)),
-    fs = require('fs'),
-    path = require('path'),
-    {VERSIONS, getVersion} = require('./src/versions'),
-    removeFileExt = require('./src/helpers.js'),
-    writeOutput = (path, src) => {
+const
+    assert = require('assert')
+    , argv = require('minimist')(process.argv.slice(2))
+    , fs = require('fs')
+    , path = require('path')
+    , {VERSIONS, getVersion} = require('./src/versions')
+    , removeFileExt = require('./src/helpers.js')
+    , writeOutput = (path, src) => {
         fs.writeFileSync(path, src);
         console.log('writing ' + path);
     }
 ;
 
-if (!argv._.length || argv.h || argv.help) {
-    !argv._.length && console.warn('missing mandatory arguments');
+if (!argv._.length) {
+    console.warn('missing mandatory arguments');
+    //show man page
+    console.log(require('./src/help'));
+    process.exit(0)
+}
+
+if (argv.h || argv.help) {
     //show man page
     console.log(require('./src/help'));
     process.exit(0)
@@ -30,14 +37,14 @@ if (output) {
 
 const watch = argv.w || argv.watch;
 const template = argv.t || argv.template;
-console.log('using template',template);
+console.log('using template', template);
 
 //read from input path
 const fileInputPath = path.resolve(input);
 console.log('reading ' + fileInputPath);
 
 //inject input to inject path
-const fileInjectPath = !!output ? path.resolve(output): getVersion(template); //use specified file from output argument or template
+const fileInjectPath = !!output ? path.resolve(output) : getVersion(template); //use specified file from output argument or template
 
 //output the result to output path
 const fileOutputPath = output ? path.resolve(output) : fileInputPath + '.p8'; //create a new file when not specified the output

@@ -36,6 +36,8 @@ Install 8pack globally and add 8pack bin as watcher with following arguments for
 ````
 $ProjectFileDir$/$FileName$ $ProjectFileDir$/$FileNameWithoutExtension$.p8
 ````
+e.g. for Lua watcher in PhpStorm 2017.3 on Windows 10 (I'm using the official Lua plugin)
+![ScreenShot](screenshots/phpstorm.png)
 
 ## ToDos
 * Write tests

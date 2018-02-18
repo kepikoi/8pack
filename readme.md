@@ -10,24 +10,24 @@ npm install 8pack -g
 
 ##Examples
 
-Create foo.p8 from foo.lua using newest PICO-8 template
+Create *sample.lua.p8* from *sample.lua* using newest PICO-8 template
 ````bash
-8pack foo.lua
+8pack tests/sample.lua
 ````
 
-Inject *foo.lua* source into *bar.p8*. Will overwrite *bar.p8* if already exists.
+Inject *sample.lua* source into *foo.p8*. Will overwrite *foo.p8* if already exists.
 ````bash
-8pack foo.lua bar.p8  
+8pack tests/sample.lua foo.p8  
 ````
 
-Watch foo.lua for changes and write to /somepath/foo.bar
+Watch */tests/sample.lua* for changes and overwrite to */tests/sample.lua.p8*
 ````bash
-8pack /somepath/foo.lua -w  
+8pack /tests/sample.lua -w  
 ````
 
-Create bar.p8 from foo.lua source using newest PICO-8 template and write to bar.p8
+Write */tests/sample.lua* source to */tests/foo.p8* using PICO-8 0.1.10c template 
 ````bash
-8pack foo.lua bar.p8 -v
+8pack tests/sample.lua /tests/foo.p8 -v 0.1.10c
 ````
 
 

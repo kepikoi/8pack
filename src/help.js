@@ -21,17 +21,17 @@ ${Object.entries(VERSIONS)
     .reduce((str,[nk,nv]) => str+`* ${nk}\n`,'')} 
 ${chalk.bold('Examples')}:
 
-node 8pack foo.lua
-create foo.p8 from foo.lua using newest PICO-8 template
+8pack foo.lua
+${chalk.italic('create foo.p8 from foo.lua using newest PICO-8 template')}
 
-node 8pack foo.lua bar.p8  
-inject foo.lua source into bar.p8. May overwrite bar.p8 if already exists.
+8pack foo.lua bar.p8  
+${chalk.italic('inject foo.lua source into bar.p8. May overwrite bar.p8 if already exists')}
 
-node 8pack /somepath/foo.lua -w  
-watch foo.lua for changes and write to /somepath/foo.bar
+8pack /somepath/foo.lua -w  
+${chalk.italic('watch foo.lua for changes and write to /somepath/foo.bar')}
 
-node 8pack foo.lua bar.p8 --template 0.1.10c
-create bar.p8 from foo.lua source using 0.1.10c PICO-8 template and write to bar.p8
+8pack foo.lua bar.p8 --template 0.1.10c
+${chalk.italic('create bar.p8 from foo.lua source using 0.1.10c PICO-8 template and write to bar.p8')}
 `;
 
 module.exports = help();

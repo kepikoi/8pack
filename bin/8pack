@@ -1,0 +1,3 @@
+#!/usr/bin/env node
+
+require('../8pack').execute.apply(process.argv)()

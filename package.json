@@ -8,7 +8,10 @@
   "scripts": {
     "test": "./node_modules/.bin/jasmine-node spec"
   },
-  "author": "",
+  "bin": {
+    "8pack": "./bin/8pack"
+  },
+  "author": "KepiKoi <kepi@",
   "license": "ISC",
   "dependencies": {
     "chalk": "^2.0.1",

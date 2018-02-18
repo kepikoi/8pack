@@ -1,6 +1,6 @@
 {
   "name": "pico8-packer",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "8pack.js",
   "start": "8pack.js",

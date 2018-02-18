@@ -2,7 +2,6 @@
 ====================
 
 ## Utility that injects Lua source into a [PICO-8](https://www.lexaloffle.com/pico-8.php) project. 
----
 
 ## Installation
 ````bash
@@ -28,7 +27,7 @@ Watch */tests/sample.lua* for changes and overwrite to */tests/sample.lua.p8*
 
 Write */tests/sample.lua* source to */tests/foo.p8* using PICO-8 0.1.10c template 
 ````bash
-8pack tests/sample.lua /tests/foo.p8 --template 0.1.10c
+8pack tests/sample.lua /tests/foo.p8 --template 0.1.10c 
 ````
 
 ## JetBrains Watcher Arguments

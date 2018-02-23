@@ -9,6 +9,7 @@ const
         fs.writeFileSync(path, src);
         console.log('writing ' + path);
     }
+    , readmodules = require('./src/readmodules')
 ;
 
 if (!argv._.length) {
@@ -50,12 +51,13 @@ const fileInjectPath = !!output ? path.resolve(output) : getVersion(template); /
 const fileOutputPath = output ? path.resolve(output) : fileInputPath + '.p8'; //create a new file when not specified the output
 console.log(`using ${fileOutputPath} as output`);
 
-const luaSource = fs.readFileSync(fileInputPath, 'utf8'); //contents of input file
+const luaSource = readmodules(fileInputPath); //contents of input file
+
 const picoSource = fs.readFileSync(fileInjectPath, 'utf8'); //contents of output file
 
 const src = [
     picoSource.slice(0, picoSource.indexOf('__lua__') + 7),
-    luaSource,
+    readmodules.convertInjects(),
     picoSource.slice(picoSource.indexOf('__gfx__')),
 ].join('\n');
 
@@ -63,7 +65,7 @@ if (watch) {
     console.log('watching for file changes on ' + fileInputPath);
     fs.watch(fileInputPath, {encoding: 'buffer'}, (eventType, filename) => {
         if (filename && eventType === 'change') {
-            console.log("changes detected on " + filename.toString())
+            console.log("changes detected on " + filename.toString());
             writeOutput(fileOutputPath, src);
         }
     });

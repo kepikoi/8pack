@@ -1,7 +1,4 @@
 .idea/
 node_modules/
-test.lua
-test.p8
-tests/*
-!tests/.gitkeep
-!tests/sample.lua
+*.p8
+tests/*.p8

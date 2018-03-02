@@ -1,11 +1,11 @@
 const
-    fs = require('fs')
-    , encoding = 'utf8'
+    fs = require("fs")
+    , encoding = "utf8"
     , modules = {root: undefined}
-    , {safeLuaComment, convertPath, mKey} = require('./helpers');
+    , {safeLuaComment, convertPath, mKey} = require("./helpers")
+    //data structure for modules cache
+    , newModuleEntry = (module, path) => ({module, path})
 ;
-
-const newModuleEntry = (module, path) => ({module, path});
 
 module.exports = inputFilePath => {
 
@@ -18,23 +18,25 @@ module.exports = inputFilePath => {
         let requires;
         //get input source
         if (!fs.existsSync(inputModulePath)) {
-            throw new Error('couldn\`t locate lua module under ' + inputModulePath);
+            throw new Error("couldn`t locate lua module under " + inputModulePath);
         }
-        let src = fs.readFileSync(inputModulePath, encoding);
-       console.log('processing submodule',inputModulePath);
         //build hashname for current file.
-        const moduleKey = mKey(inputModulePath,isRoot);
-
-        //require literal detection rules
-        const importsRegex = /require\(['"]([\w\/\.]+)['"]\)/g;
-        //find modules
+        const moduleKey = mKey(inputModulePath, isRoot);
+        if (modules[inputModulePath]) {
+            //path already taken
+            return;
+        }
+        console.log("processing submodule", inputModulePath);
+        let src = fs.readFileSync(inputModulePath, encoding);
+        // Require literal detection rules in lua. Needs to be reinitialized on each recursion, since we use its iterator to locate submodule's requires
+        const importsRegex = /require\(['"]([\w/.]+)['"]\)/g;
         while ((requires = importsRegex.exec(src)) !== null) {
             const subModulePath = convertPath(inputModulePath, requires[1]);
 
             //build hashname for nested module.
             const submoduleKey = mKey(subModulePath);
             // replace module require in src file with nested hashname variable
-            src = src.replace(requires[0], submoduleKey+'()');
+            src = src.replace(requires[0], submoduleKey + "()");
 
             //recursvice call on nested imports
             importsInFile(subModulePath);
@@ -44,20 +46,21 @@ module.exports = inputFilePath => {
         modules[moduleKey] = newModuleEntry(src, inputModulePath);
     };
 
-     importsInFile(inputFilePath, true);
+    importsInFile(inputFilePath, true);
 };
 
-module.exports.convertInjects = () => Object
-    .entries(modules)
-    //do not process root module
-    .filter(([key, value]) => key !== mKey.rootString)
-    //build submodules
-    .reduce((outString, [key, value]) => outString +
-        `--------------sub-module-${safeLuaComment(value.path)}---------------------
+module.exports.convertInjects = () =>
+    Object
+        .entries(modules)
+        //do not process root module
+        .filter(([key]) => key !== mKey.rootString)
+        //build submodules
+        .reduce((outString, [key, value]) => outString +
+            `--------------sub-module-${safeLuaComment(value.path)}---------------------
 ${key} = function()
     ${value.module}
 end
-`, '')
+`, "")
     //append root module
     + `
 --------------root-module---------------------

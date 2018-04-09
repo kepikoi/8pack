@@ -79,9 +79,12 @@ Install 8pack globally and add 8pack bin as watcher with following arguments for
 ````
 $ProjectFileDir$/$FileName$ $ProjectFileDir$/$FileNameWithoutExtension$.p8
 ````
+![Screenshot](https://github.com/kepikoi/8pack/raw/master/screenshots/jetbrains.png)
+
 
 ## ToDos
-* Write tests
 * Circular dependancy checks 
 * Module order checks
 * Prevent pedundant imports
+* Honor token limits
+* Compress code

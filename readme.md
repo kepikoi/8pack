@@ -35,6 +35,7 @@ Write */tests/sample.lua* source to */tests/foo.p8* using PICO-8 0.1.10c templat
 Lua modules can be imported via ```require('./libs/lib')``` and will be injected to the top of the p8 file as global variables. 
 Each module must return a table, variable or a function. Use node.js style path prefixes to access parent directories: ``require('../lib')``
 
+
 *main.lua:*
 ```lua
 local liba = require('./liba');
@@ -74,10 +75,34 @@ lib.iterator = 1
 return lib;
 ```
 
+Each injection is instantiated as a new function in pico8 code thus no code can be shared between modules.
+As a workaround 8pack creates a ``globals`` table as the topmost variable inside the project which can be accessed from every module.
+
+*./helpers.lua module:*
+```lua
+local helpers = {
+    setLevel = function(level)
+        globals.level = level
+    end,
+}
+
+return lib;
+```
+
+*./game.lua module:*
+```lua
+return {
+   nextLevel = function() 
+     globals.level =  globals.level+1
+     return globals.level
+   end
+} 
+```
+
 ## JetBrains Watcher Arguments
 Install 8pack globally and add 8pack bin as watcher with following arguments for on-the-fly injection 
 ````
-$ProjectFileDir$/$FileName$ $ProjectFileDir$/$FileNameWithoutExtension$.p8
+$ProjectFileDir$/projectroot.lua $ProjectFileDir$/project.p8
 ````
 e.g. for Lua watcher in PhpStorm 2017.3 on Windows 10 (I'm using the official Lua plugin)
 ![Screenshot](https://github.com/kepikoi/8pack/raw/master/screenshots/jetbrains.png)

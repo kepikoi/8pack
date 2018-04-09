@@ -36,7 +36,7 @@ module.exports = inputFilePath => {
             //build hashname for nested module.
             const submoduleKey = mKey(subModulePath);
             // replace module require in src file with nested hashname variable
-            src = src.replace(requires[0], submoduleKey + "()");
+            src = src.replace(requires[0], submoduleKey);
 
             //recursvice call on nested imports
             importsInFile(subModulePath);
@@ -49,7 +49,12 @@ module.exports = inputFilePath => {
     importsInFile(inputFilePath, true);
 };
 
+function injectGlobals(){
+    return "globals = {}\n";
+}
+
 module.exports.convertInjects = () =>
+    injectGlobals() +
     Object
         .entries(modules)
         //do not process root module
@@ -60,6 +65,7 @@ module.exports.convertInjects = () =>
 ${key} = function()
     ${value.module}
 end
+${key} = ${key}()
 `, "")
     //append root module
     + `

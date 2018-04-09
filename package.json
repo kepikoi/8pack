@@ -5,7 +5,7 @@
   "main": "8pack.js",
   "start": "8pack.js",
   "scripts": {
-    "test": "jamsine"
+    "test": "mocha"
   },
   "bin": {
     "8pack": "./bin/8pack"

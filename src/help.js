@@ -1,10 +1,13 @@
 const chalk = require("chalk");
+const version = require("../package").version;
 const {VERSIONS} = require("./versions");
 
 const help =
     `
 ${chalk.bold("Summary")}: Utility that injects Lua source into a PICO-8 project. 
 May also watch for file changes and stitch modular lua.
+
+${chalk.bold("Version")}: ${version}
 
 ${chalk.bold("Usage")}: 8pack input [output] [parameters]
 
